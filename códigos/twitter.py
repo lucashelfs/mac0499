@@ -8,25 +8,22 @@ from consumer_secret import *
 
 class CollectorListener(tweepy.StreamListener):
 
-	filename = './dados/presidenciaveis-' + time.strftime("%d-%m-%Y") + '.json'
+	filename = '../dados/presidenciaveis-' + time.strftime("%d-%m-%Y") + '.json'
 
 	def on_data(self, data):
-		
-		# imprimir o tweet
-		# tweet = json.loads(data)
-		# print('@%s: %s' % (tweet['user']['screen_name'], tweet['text'].encode('ascii', 'ignore')))
 
-		# salva os jsons que representam os tweets
-		with open(self.filename, 'a') as f:
-			f.write(data)
+		tweet = json.loads(data)
+
+		if not tweet['retweeted'] and 'RT @' not in tweet['text']:
+			with open(self.filename, 'a') as f:
+				f.write(data)
 
 		def on_error(self, status):
 			print('Erro! Código: ', status)
 
-		def abre_coletados():
-			# Para abrir os tweets que foram salvos pelo listener
+		def abre_coletados(filename):
 			tweets = []
-			for line in open('tweets_baixados.json', 'r'):
+			for line in open(filename, 'r'):
 				tweets.append(json.loads(line))
 				return tweets
 
@@ -41,4 +38,4 @@ if __name__ == '__main__':
 
 	# Connecta na API
 	stream = tweepy.Stream(auth, listener)
-	stream.filter(track=['Lula', 'Bolsonaro', 'Marina Silva', 'Ciro Gomes'])
+	stream.filter(track=['Lula', 'Bolsonaro', 'Marina Silva', 'Ciro Gomes', 'Geraldo Alckmin'])
