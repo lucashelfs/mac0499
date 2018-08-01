@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Classificar tweets {% endblock %}
+
+{% block content %}
+    <h1> Tweets para classificar </h1>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ review_formset.management_form }}
+        <ul class="list-group">
+            {% for review_form in review_formset %}
+                <li class="list-group-item">
+                    {{ review_form.tweet }}
+                    <p>
+                        {{ review_form.tweet_text }}
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ review_form.opinion.label }}
+                            {% for review_opinion in review_form.review %}
+                                <label class="radio-inline" for="{{ review_opinion.id_for_label }}">
+                                    {{ review_opinion.tag }}
+                                    {{ review_opinion.choice_label }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ review_form.ironic.label_tag }}
+                            {{ review_form.ironic }}
+                        </div>
+                    </div>
+                </li>
+        {% endfor %}
+    </ul>
+        <button type="submit" class="btn btn-primary btn-lg btn-form-submit">Enviar </button>
+    </form>
+{% endblock %}
+

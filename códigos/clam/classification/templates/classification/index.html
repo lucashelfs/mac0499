@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Classificação de Tweets{% endblock %}
+
+{% block content %}
+<form method='GET' action='review/'>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="tweets-to-be-reviewed">Quantos tweets você deseja classificar?</label>
+            <input type="number" class="form-control" value="10" id="tweets_amount" name="tweets_amount" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-default">Enviar</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

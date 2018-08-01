@@ -1,0 +1,2 @@
+# manual-classifier-helper
+A helper to manually classify a text-based dataset
