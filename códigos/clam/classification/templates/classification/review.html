@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
 {% block title %}Classificar tweets {% endblock %}
 
 {% block content %}
@@ -7,32 +11,9 @@
     <h5> Classifique se o texto do tweet apresenta uma opinião positiva ou negativa em relação ao candidato à Presidência da República relacionado.</h5>
     <form method='POST'>
         {% csrf_token %}
-        {{ review_formset.management_form }}
-        <ul class="list-group">
-            {% for review_form in review_formset %}
-                <li class="list-group-item">
-                    {{ review_form.tweet }}
-                    <p>
-                        {{ review_form.tweet_text }}
-                    </p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ review_form.opinion.label }}
-                            {% for review_opinion in review_form.review %}
-                                <label class="radio-inline" for="{{ review_opinion.id_for_label }}">
-                                    {{ review_opinion.tag }}
-                                    {{ review_opinion.choice_label }}
-                                </label>
-                            {% endfor %}
-                        </div>
-                        <div class="col-md-6">
-                            {{ review_form.ironic.label_tag }}
-                            {{ review_form.ironic }}
-                        </div>
-                    </div>
-                </li>
+        {% for review_form in review_formset %}
+            {% form form=review_form %}{% endform %}
         {% endfor %}
-    </ul>
-        <button type="submit" class="btn btn-primary btn-lg btn-form-submit">Enviar </button>
+        <button type="submit" name="_submit" class="btn">Submit</button>
     </form>
 {% endblock %}
