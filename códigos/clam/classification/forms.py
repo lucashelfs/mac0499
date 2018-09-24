@@ -20,7 +20,7 @@ class ReviewForm(forms.Form):
     """
         TODO: when is non related, add option to remove field
     """
-    ironic = forms.BooleanField(required=False, label='É irônico / não relacionado?',
+    ironic = forms.BooleanField(required=False, label='É irônico / não relacionado / não está em português?',
                                 widget=forms.CheckboxInput(attrs={'class': 'checkbox-inline'}))
     tweet = forms.IntegerField(label='Tweet', widget=forms.HiddenInput())
 
